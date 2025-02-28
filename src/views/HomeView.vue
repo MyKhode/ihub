@@ -54,7 +54,7 @@ const items = ref([
 <template>
   <div>
     <section
-      class="h-fit flex flex-col lg:flex-row items-center justify-center text-white  md:pt-15">
+      class="h-fit flex flex-col lg:flex-row items-center justify-center text-white  md:pt-5">
       <div
         class="w-full lg:w-1/2 text-center lg:text-left space-y-6 p-20 px-0 md:px-20">
         <span class="text-4xl truncate">🔥</span>
@@ -120,7 +120,7 @@ const items = ref([
         </div>
       </div>
     </section>
-    <div class=" w-full h-px max-w-6xl mx-auto my-44 mt-0 pt-0"
+    <div class=" w-full h-px max-w-6xl mx-auto md:my-44 my-5 md:mt-0 pt-0"
       style="background-image: linear-gradient(90deg, rgba(149, 131, 198, 0) 1.46%, rgba(149, 131, 198, 0.6) 40.83%, rgba(149, 131, 198, 0.3) 65.57%, rgba(149, 131, 198, 0) 107.92%);">
     </div>
 
@@ -145,13 +145,12 @@ const items = ref([
           v-for="item in items"
           :key="item.id"
           href="#"
-          class="w-72 bg-slate-900 border rounded-lg border-gray-700 p-5 shadow hover:bg-gray-700 transition">
+          class="w-72 bg-gradient-to-r from-slate-300 to-slate-500 dark:bg-gradient-to-l dark:from-slate-900 dark:to-slate-700 border rounded-lg border-gray-700 p-5 shadow hover:bg-gradient-to-r hover:from-yellow-200 hover:via-lime-400 hover:to-green-600 dark:hover:bg-gray-700 dark:hover:bg-gradient-to-r hover:border-cyan-50 dark:hover:border-cyan-50  transition">
           <!-- Header -->
           <div class="flex flex-row">
             <img :src="item.image" class="rounded h-12" />
             <p class="ml-3">
-              <span
-                class="text-gray-500 font-semibold">{{item.username}}/</span>
+              <span class="text-gray-500 font-semibold">{{item.username}}/</span>
               <span class="text-gray-300 font-semibold">{{ item.title }}</span>
             </p>
           </div>

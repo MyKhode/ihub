@@ -1,6 +1,6 @@
 <template>
   <header
-    class="sticky top-0 z-30 flex items-center justify-between p-3 shadow"
+    class="sticky top-0 z-30 flex items-center justify-between p-3 shadow bg-gradient-to-l md:bg-gradient-to-r from-yellow-200 via-lime-400 to-green-600 dark:bg-gradient-to-r dark:from-slate-900 dark:to-slate-700"
   >
     <div class="flex items-center">
       <v-icon-button @click="$emit('update:modelValue', !modelValue)">

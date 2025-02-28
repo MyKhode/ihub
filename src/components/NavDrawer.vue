@@ -15,22 +15,22 @@
     <div
       v-if="modelValue"
       ref="navContainer"
-      class="nav-container fixed z-50 flex h-full max-h-full w-64 flex-col justify-between divide-y overflow-y-auto bg-zinc-900 bg-cover py-1 px-2 text-zinc-100 shadow-lg transition-transform dark:shadow-none"
+      class="nav-container bg-gradient-to-y from-yellow-200 via-lime-400 to-green-600 dark:bg-gradient-to-t dark:from-slate-900 dark:to-slate-700 fixed z-50 flex h-full max-h-full w-64 flex-col justify-between divide-y overflow-y-auto shadow-lg transition-transform dark:shadow-none"
     >
       <nav class="py-2">
         <span class="nav-button">
-          Vuepabase
+          IHUB CENTER
           <i-simple-icons-vuedotjs class="ml-2 h-4 w-4" />
           <i-simple-icons-supabase class="ml-2 h-4 w-4" />
         </span>
       </nav>
 
-      <nav class="flex flex-shrink-0 flex-grow flex-col space-y-2 py-2">
+      <nav class="flex flex-shrink-0 flex-grow flex-col space-y-2 py-2 text-gray-900 dark:text-slate-400">
         <router-link
           v-for="{ text, to, icon } in navLinks"
           v-wave
           class="nav-button"
-          exact-active-class="bg-teal-800 text-zinc-100"
+          exact-active-class="rounded-md text-gray-900 dark:text-white bg-gradient-to-r from-teal-400 to-yellow-200 dark:from-slate-300 dark:to-slate-500"
           :to="to"
         >
           <span class="iconify mr-2 h-4 w-4" :data-icon="icon"></span>
@@ -94,10 +94,10 @@ async function signOut() {
 </script>
 
 <style scoped>
-.nav-container {
+/* .nav-container {
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url("https://images.unsplash.com/photo-1632213702844-1e0615781374?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1632&q=80");
-}
+} */
 
 .nav-button {
   @apply flex items-center rounded p-2 text-sm transition-colors focus:outline-none focus:ring-1 focus:ring-teal-500;
