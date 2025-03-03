@@ -17,9 +17,9 @@
       ref="navContainer"
       class="nav-container bg-gradient-to-y from-yellow-200 via-lime-400 to-green-600 dark:bg-gradient-to-t dark:from-slate-900 dark:to-slate-700 fixed z-50 flex h-full max-h-full w-64 flex-col justify-between divide-y overflow-y-auto shadow-lg transition-transform dark:shadow-none"
     >
-      <nav class="py-2">
+      <nav class="py-2 text-slate-900 dark:text-slate-50 font-bold">
         <span class="nav-button">
-          IHUB CENTER
+          RD-LAB CENTER
           <i-simple-icons-vuedotjs class="ml-2 h-4 w-4" />
           <i-simple-icons-supabase class="ml-2 h-4 w-4" />
         </span>
@@ -38,8 +38,8 @@
         </router-link>
       </nav>
 
-      <nav class="py-2">
-        <button @click="signOut" class="nav-button w-full">
+      <nav class="py-2" v-if="isSignIn">
+        <button @click="signOut" class="nav-button w-full text-slate-50">
           <i-carbon-logout class="mr-2 h-4 w-4" />
           Sign Out
         </button>
@@ -51,6 +51,8 @@
 <script lang="ts" setup>
 import { breakpointsTailwind } from "@vueuse/core";
 import { supabase } from "@/services/supabase";
+
+const isSignIn = ref(!!supabase.auth.user());
 
 defineProps<{
   modelValue: boolean;

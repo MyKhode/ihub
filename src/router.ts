@@ -48,7 +48,9 @@ const router = createRouter({
       component: () => import("@/layouts/DashboardLayout.vue"),
       children: [
         { path: "/", name: "home", component: () => import("@/views/HomeView.vue") }, // Public route
+        { path: "/apps", name: "apps", component: () => import("@/views/AllApps.vue") }, // Public route
         { path: "/profile", name: "profile", component: () => import("@/views/ProfileView.vue"), meta: { requiresAuth: true } },
+        { path: "/extract-subtitle-from-tiktok-video", name: "extract-subtitle-from-tiktok-video", component: () => import("@/app/getsub/GetSub.vue"), meta: { requiresAuth: true } },
       ],
     },
   ],
