@@ -138,7 +138,7 @@ const items = ref([
 
     <section>
       <div class="flex px-5 w-full py-11 md:py-0 md:flex-row justify-start lg:justify-center items-center gap-7 overflow-x-auto snap-x md:snap-none md:overflow-x-visible">
-        <standardCard :title="'Basic'" :price="0.01" :tokens="'1000'"  class="snap-center"/>
+        <standardCard :title="'Basic'" :price="0.05" :tokens="'1000'"  class="snap-center"/>
         <standardCard :title="'Basic'" :price="0.50" :tokens="'2000'" class="snap-center"/>
         <standardCard :title="'Basic'" :price="1.00" :tokens="'4000'" class="snap-center"/>
       </div>

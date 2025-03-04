@@ -26,8 +26,8 @@ app.post('/generate-khqr', async (req, res) => {
     console.log(`[DEBUG] Generating KHQR...`);
     const khqrResult = KHQR.generate({
       tag: TAG.INDIVIDUAL,
-      accountID: 'sory_tet@aclb',
-      merchantName: 'ncx topup',
+      accountID: 'ikhode@aclb',
+      merchantName: 'Ikhode Banking',
       currency: CURRENCY.USD,
       amount: Number(amount),
       countryCode: COUNTRY.KH,

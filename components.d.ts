@@ -14,6 +14,7 @@ declare module 'vue' {
     ICarbonSun: typeof import('~icons/carbon/sun')['default']
     ISimpleIconsSupabase: typeof import('~icons/simple-icons/supabase')['default']
     ISimpleIconsVuedotjs: typeof import('~icons/simple-icons/vuedotjs')['default']
+    KlaKloukCard: typeof import('./src/components/KlaKloukCard.vue')['default']
     LoadingIcon: typeof import('./src/components/LoadingIcon.vue')['default']
     NavDrawer: typeof import('./src/components/NavDrawer.vue')['default']
     StandardCard: typeof import('./src/components/StandardCard.vue')['default']
