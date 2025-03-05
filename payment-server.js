@@ -3,28 +3,35 @@ import cors from 'cors';
 import { KHQR, CURRENCY, COUNTRY, TAG } from 'ts-khqr';
 import QRCode from 'qrcode';
 import fetch from 'node-fetch';
-
+import { WebSocketServer } from 'ws';
 
 console.log('Starting server...');
 
 const app = express();
 const PORT = process.env.PORT || 7777;
 
-// Enable CORS for requests from your frontend (running on port 3000)
 app.use(cors({
-  origin: 'http://localhost:5173',  // Adjust this if your front-end runs on a different port
+  origin: 'http://localhost:5173',
   methods: ['GET', 'POST'],
 }));
-
 app.use(express.static('public'));
 app.use(express.json());
+
+const wss = new WebSocketServer({ port: 8080 }); // WebSocket server
+
+const clients = new Set();
+
+wss.on('connection', (ws) => {
+  console.log('[INFO] New WebSocket client connected');
+  clients.add(ws);
+  ws.on('close', () => clients.delete(ws));
+});
 
 app.post('/generate-khqr', async (req, res) => {
   const { amount, transactionId } = req.body;
   console.log(`[INFO] Received request to generate KHQR with data:`, { amount, transactionId });
 
   try {
-    console.log(`[DEBUG] Generating KHQR...`);
     const khqrResult = KHQR.generate({
       tag: TAG.INDIVIDUAL,
       accountID: 'tet_sory@aclb',
@@ -38,18 +45,14 @@ app.post('/generate-khqr', async (req, res) => {
       }
     });
 
-    console.log(`[INFO] Generated KHQR result:`, khqrResult);
-
     if (khqrResult.status.code === 0 && khqrResult.data) {
       const qrString = khqrResult.data.qr;
       const qrCodeData = await QRCode.toDataURL(qrString);
-      console.log(`[INFO] QR Code Generated Successfully`);
-
       res.json({ qrCodeData });
+
       console.log(`[DEBUG] Calling checkPaymentStatus()...`);
       await checkPaymentStatus(khqrResult.data.md5, amount, transactionId);
     } else {
-      console.error(`[ERROR] Invalid KHQR data:`, khqrResult.status);
       res.status(400).json({ error: 'Invalid KHQR data' });
     }
   } catch (error) {
@@ -69,7 +72,7 @@ async function checkPaymentStatus(md5, amount, transactionId) {
   };
 
   const intervalId = setInterval(async () => {
-    console.log(`[DEBUG] Checking payment status every 5 seconds...`);
+    console.log(`[DEBUG] Checking payment status...`);
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -83,6 +86,16 @@ async function checkPaymentStatus(md5, amount, transactionId) {
 
         if (jsonData.responseCode === 0 && jsonData.data && jsonData.data.hash) {
           console.log(`[SUCCESS] Payment Confirmed for Transaction: ${transactionId}, Amount: ${amount}`);
+
+          // Notify all WebSocket clients about successful payment
+          clients.forEach(ws => {
+            ws.send(JSON.stringify({
+              type: 'payment_success',
+              transactionId,
+              amount
+            }));
+          });
+
           clearInterval(intervalId);
         }
       } else {
@@ -94,9 +107,9 @@ async function checkPaymentStatus(md5, amount, transactionId) {
   }, 5000);
 
   setTimeout(() => {
-    console.error(`[ERROR] Payment timeout: 1000 seconds elapsed`);
+    console.error(`[ERROR] Payment timeout: 30 seconds elapsed`);
     clearInterval(intervalId);
-  }, 1000000);
+  }, 60000);
 }
 
 app.listen(PORT, () => {

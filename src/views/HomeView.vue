@@ -6,6 +6,22 @@ import standardCard from "@/components/StandardCard.vue";
 
 const { supabase } = useAuthStore();
 const isSignIn = ref(!!supabase.auth.user());
+
+const user = supabase.auth.user();
+const token = ref(0);
+
+async function fetchToken() {
+  const { data: user_token } = await supabase
+    .from("user_profiles")
+    .select("token")
+    .eq("user_id", user?.id)
+    .single();
+  if (user_token) {
+    token.value = user_token.token;
+  }
+  console.log(token.value)
+}
+
 const tool_items = ref([
   {
     id: 1,

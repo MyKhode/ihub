@@ -4,28 +4,17 @@ import { isDarkKey } from "@/symbols";
 import { supabase } from "@/services/supabase";
 import { watch, ref, onMounted } from "vue";
 
-const token = ref(0);
 const user = supabase.auth.user();
 
 const isSignIn = ref(!!supabase.auth.user());
-async function fetchToken() {
-  const { data: user_token } = await supabase
-    .from("user_profiles")
-    .select("token")
-    .eq("user_id", user?.id)
-    .single();
-  if (user_token) {
-    token.value = user_token.token;
-  }
-  console.log(token.value)
-}
 
-onMounted(fetchToken);
 
 /* modelValue here refers to whether or not to show side nav drawer */
-defineProps<{
+const props = defineProps<{
   modelValue: boolean;
+  tokens: number;
 }>();
+
 
 defineEmits<{
   (e: "update:modelValue", value: boolean): void;
@@ -45,7 +34,7 @@ const toggleDark = useToggle(isDark);
     </div>
     <div class="flex items-center space-x-4">
       <div v-if="isSignIn" class="flex items-center space-x-1 cursor-pointer" title="User Remaining Tokens">
-        <span>Tokens: {{ token }}</span>
+        <span>Tokens: {{ props.tokens }}</span>
         <i class="fa-solid fa-gem"></i>
       </div>
       <router-link to="/signin" v-else>

@@ -1,35 +1,67 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import axios from "axios";
+import { emit } from "process";
 
-// Props for the product
 const props = defineProps<{
     title: string;
     price: number;
     tokens: string;
 }>();
 
-// Store reference and user sign-in status
 const { supabase } = useAuthStore();
 const isSignIn = ref(!!supabase.auth.user());
-
-// QR code state
 const qrCodeData = ref<string | null>(null);
+const transactionId = ref<string | null>(null);
+let socket: WebSocket | null = null;
 
-// Function to handle Buy Now button click
+const user = supabase.auth.user();
+
+
+const countdownTime = ref(60);
+const isCountdownActive = ref(false);
+let countdownTimer: ReturnType<typeof setTimeout> | null = null;
+
+const startCountdown = () => {
+    isCountdownActive.value = true;
+    countdownTime.value = 60; // Reset countdown
+
+    const tick = () => {
+        if (countdownTime.value > 0) {
+            countdownTime.value--;
+            countdownTimer = setTimeout(tick, 1000);
+        } else {
+            isCountdownActive.value = false;
+        }
+    };
+
+    tick();
+};
+
+const resetCountdown = () => {
+    if (countdownTimer) {
+        clearTimeout(countdownTimer);
+    }
+    countdownTime.value = 60;
+    isCountdownActive.value = false;
+};
+
+
+
 const handleBuyNow = async () => {
     if (isSignIn.value) {
         try {
-            // Call the backend API to generate the KHQR QR code
-            const response = await axios.post('http://localhost:7777/generate-khqr', {
+            transactionId.value = `txn_${new Date().getTime()}`;
+            const response = await axios.post("http://localhost:7777/generate-khqr", {
                 amount: props.price,
-                transactionId: `txn_${new Date().getTime()}`, // Generating a unique transaction ID
+                transactionId: transactionId.value,
             });
 
             if (response.data.qrCodeData) {
-                // Set the QR code data to be displayed
                 qrCodeData.value = response.data.qrCodeData;
+                startCountdown();
+                isCountdownActive.value = true;
             }
         } catch (error) {
             console.error("Error generating QR code:", error);
@@ -38,7 +70,80 @@ const handleBuyNow = async () => {
         alert("Please sign in to make a purchase.");
     }
 };
+
+
+onMounted(() => {
+    socket = new WebSocket("ws://localhost:8080");
+
+    socket.onmessage = async (event) => {
+        const data = JSON.parse(event.data);
+
+        if (data.type === "payment_success" && data.transactionId === transactionId.value) {
+            resetCountdown();
+            isCountdownActive.value = false;
+
+            alert(`Payment successful! Amount: ${data.amount}`);
+
+            // Convert payment amount to tokens
+            const newTokens = data.amount * 4000;
+
+            // Fetch current tokens
+            const { data: userToken, error } = await supabase
+                .from("user_profiles")
+                .select("token")
+                .eq("user_id", user?.id)
+                .single();
+
+            if (error) {
+                console.error("Error fetching user token:", error);
+                return;
+            }
+
+            // Convert token from text to number (default to 0 if null)
+            const currentTokens = userToken?.token ? parseInt(userToken.token, 10) : 0;
+
+            // Calculate the new token balance
+            const updatedTokens = currentTokens + newTokens;
+
+            // Update token balance in Supabase (convert number back to string for storage)
+            const { error: updateError } = await supabase
+                .from("user_profiles")
+                .update({ token: updatedTokens.toString() }) // Convert back to string
+                .eq("user_id", user?.id);
+
+            if (updateError) {
+                console.error("Error updating tokens:", updateError);
+            } else {
+                console.log(`Tokens updated successfully! New Balance: ${updatedTokens}`);
+            }
+        }
+    };
+
+    socket.onclose = () => {
+        console.log("WebSocket connection closed");
+    };
+});
+
+const saveQRCode = () => {
+    if (!qrCodeData.value) return;
+
+    const link = document.createElement("a");
+    link.href = qrCodeData.value;
+    link.download = "khqr_code.png"; // Filename for the saved QR code
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+};
+
+
+
+onUnmounted(() => {
+    if (socket) {
+        socket.close();
+    }
+});
 </script>
+
 <template>
     <div>
         <div
@@ -66,7 +171,7 @@ const handleBuyNow = async () => {
                         </span>
                         <p class="text-slate-700 dark:text-slate-300">
                             {{ props.price.toLocaleString("en-US", { style: "currency", currency: "USD" }) }} = {{
-                            props.tokens }} tokens
+                                props.tokens }} tokens
                         </p>
                     </li>
 
@@ -92,10 +197,35 @@ const handleBuyNow = async () => {
                     Buy Now
                 </button>
             </div>
-            <!-- Display QR Code if available -->
-            <div v-if="qrCodeData" class="mt-8">
-                <img :src="qrCodeData" alt="KHQR Code" />
+            <!-- QR Code Display -->
+            <div v-if="qrCodeData && isCountdownActive"
+                class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-5">
+
+                <div
+                    class="relative bg-white dark:bg-slate-800 p-5 md:p-10 rounded-lg border border-slate-300 dark:border-slate-600 w-full max-w-md shadow-lg">
+                    <!-- QR Code Image -->
+                    <img :src="qrCodeData" alt="KHQR Code" class="w-full h-auto max-w-xs mx-auto" />
+
+                    <!-- Close Button -->
+                    <button @click="qrCodeData = null; resetCountdown()"
+                        class="absolute top-2 right-2 p-1 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg">
+                        <i class="fa-solid fa-xmark text-slate-700 dark:text-slate-300 px-1"></i>
+                    </button>
+
+                    <!-- Countdown Timer -->
+                    <p v-if="isCountdownActive" class="text-center text-red-500 text-sm md:text-lg mt-2">
+                        Payment expires in {{ countdownTime }}s
+                    </p>
+
+                    <!-- Save QR Code Button -->
+                    <button @click="saveQRCode"
+                        class="mt-4 flex items-center justify-center gap-2 w-full bg-yellow-600 text-white py-2 rounded-md shadow-md hover:bg-yellow-700">
+                        <i class="fa-solid fa-download"></i> Save QR Code
+                    </button>
+                </div>
             </div>
+
+
         </div>
     </div>
 </template>
