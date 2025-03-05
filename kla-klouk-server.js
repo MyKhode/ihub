@@ -8,7 +8,7 @@ const symbols = ['deer', 'calabash', 'rooster', 'fish', 'crab', 'shrimp']
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "http://localhost:5173",
     methods: ["GET", "POST"]
   }
 });
@@ -16,7 +16,7 @@ const io = new Server(server, {
 // Game state management
 let gameState = {
   status: 'waiting', // 'waiting' | 'countdown'
-  countdown: 10,
+  countdown: 6,
   results: null
 };
 
@@ -38,7 +38,7 @@ io.on('connection', (socket) => {
     if (gameState.status !== 'waiting') return;
     
     gameState.status = 'countdown';
-    gameState.countdown = 10;
+    gameState.countdown = 6;
     gameState.results = null;
     
     // Broadcast new state

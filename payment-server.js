@@ -1,17 +1,18 @@
-const express = require('express');
-const cors = require('cors'); // Add cors package for handling cross-origin requests
-const { KHQR, CURRENCY, COUNTRY, TAG } = require('ts-khqr');
-const QRCode = require('qrcode');
-const fetch = require('node-fetch');
+import express from 'express';
+import cors from 'cors';
+import { KHQR, CURRENCY, COUNTRY, TAG } from 'ts-khqr';
+import QRCode from 'qrcode';
+import fetch from 'node-fetch';
+
 
 console.log('Starting server...');
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 7777;
 
 // Enable CORS for requests from your frontend (running on port 3000)
 app.use(cors({
-  origin: 'http://localhost:3000',  // Adjust this if your front-end runs on a different port
+  origin: 'http://localhost:5173',  // Adjust this if your front-end runs on a different port
   methods: ['GET', 'POST'],
 }));
 
@@ -26,7 +27,7 @@ app.post('/generate-khqr', async (req, res) => {
     console.log(`[DEBUG] Generating KHQR...`);
     const khqrResult = KHQR.generate({
       tag: TAG.INDIVIDUAL,
-      accountID: 'ikhode@aclb',
+      accountID: 'tet_sory@aclb',
       merchantName: 'Ikhode Banking',
       currency: CURRENCY.USD,
       amount: Number(amount),

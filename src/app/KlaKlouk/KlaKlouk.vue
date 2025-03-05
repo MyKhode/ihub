@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
-import KlaKloukCard from '@/components/KlaKloukCard.vue'
+import KlaKloukCard from '@/app/KlaKlouk/KlaKloukCard.vue'
 import { io } from 'socket.io-client'
 
 const socket = io('http://localhost:3001')
@@ -32,9 +32,10 @@ function placeBet(symbol) {
             bets.value[symbol] += betAmount.value
             balance.value -= betAmount.value
         }
+
+
     }
 }
-
 function calculateWinnings(results) {
     if (!Array.isArray(results)) {
         console.error("Invalid results received:", results);
@@ -42,34 +43,49 @@ function calculateWinnings(results) {
     }
 
     let winnings = 0;
+    winningSymbols.value = []; // Clear previous winning symbols
 
-    results.forEach(result => {
-        if (bets.value[result]) {
-            const count = results.filter(r => r === result).length;
-            if (count === 3) {
-                winnings += bets.value[result] * 3; // Triple the bet amount for three matches
-            } else if (count === 2) {
-                winnings += bets.value[result] * 2; // Double the bet amount for two matches
-            } else if (count === 1) {
-                winnings += bets.value[result]; // Add the bet amount for one match
+    results.forEach((result, index) => {
+        setTimeout(() => {
+            winningSymbols.value = [result]; // Show one at a time
+            console.log(`Showing result: ${result}`);
+
+            if (bets.value[result]) {
+                const count = results.filter(r => r === result).length;
+                winnings += bets.value[result] * count;
+                delete bets.value[result];
             }
-            // Remove the bet to prevent double counting in future iterations
-            delete bets.value[result];
-        }
+
+            if (index === results.length - 1) {
+                // Refund remaining bets after last result
+                setTimeout(() => {
+                    Object.keys(bets.value).forEach(symbol => {
+                        balance.value += bets.value[symbol];
+                    });
+                    bets.value = {};
+                    console.log("All bets cleared, ready for new round", bets.value);
+                    messages.value.unshift("🎲 Dice Result: " + results);
+                }, 2000);
+            }
+        }, index * 2000); // Delay each result by 2s
     });
 
     balance.value += winnings;
-
-    // Clear all bets and reset for new round
-    Object.keys(bets.value).forEach(symbol => {
-        balance.value += bets.value[symbol]; // Refund all bets
-    });
-    bets.value = {}; // Clear all bets
-    console.log("All bets cleared, ready for new round", bets.value);
+    
+    setTimeout(() => {
+        clearWinningSymbols();
+    }, 6000); // Adjust the delay as needed
 
     console.log(`Results: ${results.join(', ')}, Winnings: ${winnings}`);
 }
 
+
+
+
+function clearWinningSymbols() {
+    winningSymbols.value = []; // Clear the displayed winning symbols
+    console.log("Winning symbols cleared.");
+}
 
 
 const gameState = ref({
@@ -83,6 +99,7 @@ const sendMessage = () => {
     if (newMessage.value.trim()) {
         socket.emit('chat message', newMessage.value)
         newMessage.value = ''
+        startAnimation();
     }
 }
 
@@ -108,7 +125,7 @@ onMounted(() => {
     socket.on('dice-results', (data) => {
         console.log("Received dice results:", data, typeof data);
         calculateWinnings(data);
-        messages.value.unshift("🎲 Dice Result: " + data);
+        winningSymbols.value = data
     });
 
 
@@ -120,13 +137,54 @@ onMounted(() => {
 onBeforeUnmount(() => {
     socket.disconnect()
 })
-</script>
-<style>
-/* prevent double click to zoom in or out */
-html {
-    touch-action: manipulation;
+
+
+// -----------------------------------------------
+const currentSymbol = ref(symbols[0]) // Track the current symbol
+const winningSymbols = ref([]) // Track the winning symbols
+let animationInterval = null // Store the interval ID
+
+// Function to start the animation
+const startAnimation = () => {
+    animationInterval = setInterval(() => {
+        const currentIndex = symbols.indexOf(currentSymbol.value)
+        currentSymbol.value = symbols[(currentIndex + 1) % symbols.length]
+    }, 400) // Change symbol every 400ms
 }
-</style>
+
+// Function to stop the animation
+const stopAnimation = () => {
+    if (animationInterval) {
+        clearInterval(animationInterval)
+        animationInterval = null
+        currentSymbol.value = symbols[0] // Reset to the first symbol
+    }
+}
+
+// Watch for game state changes
+watch(
+    () => gameState.value.status,
+    (newStatus) => {
+        if (newStatus === 'countdown') {
+            startAnimation() // Start animation during countdown
+            console.log("Countdown started, running animation...")
+        } else if (newStatus === 'waiting') {
+
+            console.log("Waiting for bets, no animation...")
+        }
+    }
+)
+
+onMounted(() => {
+    stopAnimation() // Ensure no animation runs on initial load
+})
+
+onBeforeUnmount(() => {
+    stopAnimation() // Clean up on unmount
+})
+
+</script>
+
 
 <template>
     <div class="flex flex-col items-center justify-center">
@@ -140,18 +198,21 @@ html {
             </button>
 
 
-            <div v-if="gameState.results" class="text-white text-xl animate-pulse">
+            <!-- <div v-if="gameState.results" class="text-white text-xl animate-pulse">
                 Results:
                 <span class="text-yellow-400">
                     {{ gameState.results.join(', ') }}
                 </span>
-            </div>
+            </div> -->
         </div>
 
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 pb-4 mt-5 select-none">
             <KlaKloukCard v-for="symbol in symbols" :key="symbol" :imageUrl="`/public/images/${symbol}.svg`"
                 :imageAlt="symbol" :title="symbol" :betAmount="bets[symbol] || 0" @place-bet="placeBet"
-                @clear-bet="clearBets" />
+                @clear-bet="clearBets" :class="{
+                    'highlighted': gameState.status === 'countdown' && currentSymbol === symbol,
+                    'scale-up': winningSymbols.includes(symbol)
+                }" class="klaklouk" />
         </div>
 
         <div class="flex flex-col items-center space-y-4 w-full max-w-2xl mx-auto p-4">
@@ -174,3 +235,60 @@ html {
         </div>
     </div>
 </template>
+
+
+<style>
+/* prevent double click to zoom in or out */
+html {
+    touch-action: manipulation;
+}
+
+.highlighted {
+    background-color: rgba(255, 215, 0, 0.5);
+    transition: background-color 0.5s ease-in-out;
+    border: 2px solid gold;
+    box-shadow: 0 0 10px gold;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.scale-up {
+    animation: scaleUp 3s ease-in-out;
+    /* Set to 3s for testing */
+    animation-fill-mode: forwards;
+    /* Keeps the final state of the animation */
+    border: 4px solid red;
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+.KlaKloukCard {
+    transition: transform 0.3s ease-in-out;
+}
+</style>

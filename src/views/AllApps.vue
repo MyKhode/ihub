@@ -15,6 +15,14 @@ const items = ref([
     image: "https://www.ikhode.site/_astro/avatar.CIVzSjiG_Z1VvrYM.webp",
     route: "/extract-subtitle-from-tiktok-video"
   },
+  {
+    id: 2,
+    username: "IPLAY",
+    title: "fish Prawn Crab Dice Game",
+    description: "Fish Prawn Crab Dice Game is a popular Khmer game that is played with a set of dice. The game is easy to play and is a great way to spend time with friends and family.",
+    image: "/images/dice.svg",
+    route: "/kla-klouk"
+  },
 ]);
 </script>
 

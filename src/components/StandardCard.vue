@@ -22,7 +22,7 @@ const handleBuyNow = async () => {
     if (isSignIn.value) {
         try {
             // Call the backend API to generate the KHQR QR code
-            const response = await axios.post('http://localhost:3001/generate-khqr', {
+            const response = await axios.post('http://localhost:7777/generate-khqr', {
                 amount: props.price,
                 transactionId: `txn_${new Date().getTime()}`, // Generating a unique transaction ID
             });
