@@ -25,5 +25,5 @@
     "src/**/*.vue",
     "components.d.ts",
     "auto-imports.d.ts"
-  ]
+, "eventBus.js"  ]
 }

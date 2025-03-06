@@ -29,7 +29,7 @@ wss.on('connection', (ws) => {
 
 app.post('/generate-khqr', async (req, res) => {
   const { amount, transactionId } = req.body;
-  console.log(`[INFO] Received request to generate KHQR with data:`, { amount, transactionId });
+  // console.log(`[INFO] Received request to generate KHQR with data:`, { amount, transactionId });
 
   try {
     const khqrResult = KHQR.generate({
@@ -50,7 +50,7 @@ app.post('/generate-khqr', async (req, res) => {
       const qrCodeData = await QRCode.toDataURL(qrString);
       res.json({ qrCodeData });
 
-      console.log(`[DEBUG] Calling checkPaymentStatus()...`);
+      // console.log(`[DEBUG] Calling checkPaymentStatus()...`);
       await checkPaymentStatus(khqrResult.data.md5, amount, transactionId);
     } else {
       res.status(400).json({ error: 'Invalid KHQR data' });
@@ -62,7 +62,7 @@ app.post('/generate-khqr', async (req, res) => {
 });
 
 async function checkPaymentStatus(md5, amount, transactionId) {
-  console.log(`[INFO] Checking payment status for MD5: ${md5}`);
+  // console.log(`[INFO] Checking payment status for MD5: ${md5}`);
   const url = "https://api-bakong.nbc.gov.kh/v1/check_transaction_by_md5";
   const body = { "md5": md5 };
   const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjoiMzQ2ZjI0MGJlMzcwNDgwNiJ9LCJpYXQiOjE3NDA1NTcyNzQsImV4cCI6MTc0ODMzMzI3NH0.M6_c8kN4RHbwo8oaOqcIKk3FOQlifz0MFuUg6xbKwxU";
@@ -72,7 +72,7 @@ async function checkPaymentStatus(md5, amount, transactionId) {
   };
 
   const intervalId = setInterval(async () => {
-    console.log(`[DEBUG] Checking payment status...`);
+    // console.log(`[DEBUG] Checking payment status...`);
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -82,7 +82,7 @@ async function checkPaymentStatus(md5, amount, transactionId) {
 
       if (response.ok) {
         const jsonData = await response.json();
-        console.log(`[INFO] Payment Status Response:`, jsonData);
+        // console.log(`[INFO] Payment Status Response:`, jsonData);
 
         if (jsonData.responseCode === 0 && jsonData.data && jsonData.data.hash) {
           console.log(`[SUCCESS] Payment Confirmed for Transaction: ${transactionId}, Amount: ${amount}`);

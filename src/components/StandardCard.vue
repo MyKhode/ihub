@@ -2,7 +2,7 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import axios from "axios";
-import { emit } from "process";
+import { eventBus } from "@/eventBus";
 
 const props = defineProps<{
     title: string;
@@ -82,7 +82,7 @@ onMounted(() => {
             resetCountdown();
             isCountdownActive.value = false;
 
-            alert(`Payment successful! Amount: ${data.amount}`);
+            // alert(`Payment successful! Amount: ${data.amount}`);
 
             // Convert payment amount to tokens
             const newTokens = data.amount * 4000;
@@ -114,7 +114,9 @@ onMounted(() => {
             if (updateError) {
                 console.error("Error updating tokens:", updateError);
             } else {
-                console.log(`Tokens updated successfully! New Balance: ${updatedTokens}`);
+                // console.log(`Tokens updated successfully! New Balance: ${updatedTokens}`);
+                // Emit globally using eventBus
+                eventBus.emit("custom-event", { message: updatedTokens });
             }
         }
     };
