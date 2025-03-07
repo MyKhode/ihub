@@ -16,7 +16,7 @@ const io = new Server(server, {
 // Game state management
 let gameState = {
   status: 'waiting', // 'waiting' | 'countdown'
-  countdown: 6,
+  countdown: 10,
   results: null
 };
 
@@ -38,7 +38,7 @@ io.on('connection', (socket) => {
     if (gameState.status !== 'waiting') return;
     
     gameState.status = 'countdown';
-    gameState.countdown = 6;
+    gameState.countdown = 10;
     gameState.results = null;
     
     // Broadcast new state
@@ -62,10 +62,10 @@ io.on('connection', (socket) => {
         console.log(`${gameState.results}`);
         
         // Reset state
-        setTimeout(() => {
+        // setTimeout(() => {
           gameState.results = null;
           io.emit('game-state', gameState);
-        }, 5000);
+        // }, 5000);
       }
     }, 1000);
   });

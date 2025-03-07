@@ -78,14 +78,19 @@ const navLinks = [
     icon: "heroicons-outline:home",
   },
   {
+    text: "All Apps",
+    to: "/apps",
+    icon: "game-icons:abstract-050",
+  },
+  {
+    text: "kla klouk",
+    to: "/kla-klouk",
+    icon: "game-icons:dice-fire",
+  },
+  {
     text: "Profile",
     to: "/profile",
     icon: "heroicons-outline:user",
-  },
-  {
-    text: "History",
-    to: "/history",
-    icon: "heroicons-outline:home",
   },
 ];
 

@@ -26,11 +26,13 @@ const notification = ref(false);
 const notificationMessage = ref("Hi, welcome to Research and Development Center");
 const typeNotification = ref("success");
 
+
 /**
  * Fetch user tokens from database
  */
 const fetchToken = async (): Promise<void> => {
-  typeNotification.value = "success";
+
+  if (isNotificationFromPurchase.value == false) typeNotification.value = "happy";;
 
   if (!user) return; // Ensure user is signed in
 
@@ -44,7 +46,7 @@ const fetchToken = async (): Promise<void> => {
     if (error) throw error;
     if (data) token.value = data.token;
 
-    console.log("User Tokens:", token.value);
+    // console.log("User Tokens:", token.value);
 
     // 🔥 Update Notification Reactively
     if (isNotificationFromPurchase.value == true) {
@@ -55,12 +57,12 @@ const fetchToken = async (): Promise<void> => {
     }
     notification.value = true;
 
-    console.log("Notification value:", notification.value);
+    // console.log("Notification value:", notification.value);
 
-    // Auto-hide after 2 seconds
+    // Auto-hide after 4 seconds
     setTimeout(() => {
       notification.value = false;
-    }, 2000);
+    }, 4000);
 
     isNotificationFromPurchase.value = false;
 
@@ -72,8 +74,13 @@ const fetchToken = async (): Promise<void> => {
 /**
  * Handles custom event
  */
-const handleCustomEvent = async (data: any) => {
-  console.log("Received event:", data);
+const EmojiEvent = async (data: any) => {
+  // console.log("Received event:", data);
+  isNotificationFromPurchase.value = false;
+  await fetchToken();
+};
+const handlePurchaseTokenEvent = async (data: any) => {
+  // console.log("Received event:", data);
   isNotificationFromPurchase.value = true;
   await fetchToken();
 };
@@ -81,11 +88,13 @@ const handleCustomEvent = async (data: any) => {
 // Lifecycle Hooks
 onMounted(() => {
   fetchToken();
-  eventBus.on("custom-event", handleCustomEvent);
+  eventBus.on("emoji-event", EmojiEvent);
+  eventBus.on("purchase-token-event", handlePurchaseTokenEvent);
 });
 
 onUnmounted(() => {
-  eventBus.off("custom-event", handleCustomEvent);
+  eventBus.off("emoji-event", EmojiEvent);
+  eventBus.off("purchase-token-event", handlePurchaseTokenEvent);
 });
 </script>
 
@@ -98,7 +107,7 @@ onUnmounted(() => {
     <v-icon-button @click="emit('update:modelValue', !props.modelValue)">
       <i-carbon-menu class="h-6 w-6" />
     </v-icon-button>
-    <Notification v-if="notification" :value="notificationMessage" :typeNotification="typeNotification" />
+    <Notification v-if="notification" :value="notificationMessage" :typeNotification="typeNotification" :isNotificational="notification" />
 
     <!-- User Token Info & Theme Toggle -->
     <div class="flex items-center space-x-4">

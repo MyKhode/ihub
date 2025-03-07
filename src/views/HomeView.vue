@@ -96,7 +96,7 @@ const items = ref([
 </script>
 <template>
   <div>
-    <section class="h-fit px-4 md:px-32 flex flex-col lg:flex-row items-center justify-center text-white  md:pt-5">
+    <section class="h-fit px-2 md:px-5 lg:px-30 flex flex-col lg:flex-row items-center justify-center text-white  md:pt-5">
       <div class="w-full lg:w-1/2 text-center lg:text-left space-y-6 p-20 px-0 md:px-20">
         <span class="text-4xl truncate">🔥</span>
         <h1 class="text-3xl md:text-4xl text-black font-bold dark:text-white">Building

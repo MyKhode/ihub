@@ -27,6 +27,7 @@ declare module 'vue' {
     Notification: typeof import('./src/components/Notification.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ServerErrorAlert: typeof import('./src/components/ServerErrorAlert.vue')['default']
     StandardCard: typeof import('./src/components/StandardCard.vue')['default']
     VButton: typeof import('./src/components/VButton.vue')['default']
     VIconButton: typeof import('./src/components/VIconButton.vue')['default']

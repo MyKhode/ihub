@@ -116,7 +116,7 @@ onMounted(() => {
             } else {
                 // console.log(`Tokens updated successfully! New Balance: ${updatedTokens}`);
                 // Emit globally using eventBus
-                eventBus.emit("custom-event", { message: updatedTokens });
+                eventBus.emit("purchase-token-event", { message: updatedTokens });
             }
         }
     };
