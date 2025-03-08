@@ -1,6 +1,6 @@
 <template>
   <div  @click="$emit('place-bet', title, handleClick)"
-    class="relative w-28 h-28 md:w-56 md:h-56 lg:w-64 lg:h-64 cursor-pointer rounded-lg border-4 lg:border-8 border-yellow-500 flex items-center justify-center hover:bg-zinc-600 dark:hover:bg-zinc-800"
+    class="relative w-28 h-28 md:w-56 md:h-56 lg:w-64 lg:h-64 cursor-pointer rounded-lg border-4 lg:border-8 border-yellow-100 dark:border-yellow-500 flex items-center justify-center hover:bg-zinc-600 dark:hover:bg-zinc-800"
     :class="{ 'bg-gray-700 scale-95': isClicked }" :title="title">
 
     <button type="button" v-if = "betAmount > 0"  @click.stop="$emit('clear-bet', title)" 

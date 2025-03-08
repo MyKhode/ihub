@@ -141,7 +141,7 @@ const calculateWinnings = async (results) => {
 
     setTimeout(() => {
         clearWinningSymbols();
-    }, 7000);
+    }, 8000);
 
     console.log(`Results: ${results.join(', ')}, Winnings: ${winnings}, Lost Bets: ${lostTokenBets}, Balance: ${balance.value}`);
 };
@@ -228,7 +228,7 @@ const startAnimation = () => {
     animationInterval = setInterval(() => {
         const currentIndex = symbols.indexOf(currentSymbol.value);
         currentSymbol.value = symbols[(currentIndex + 1) % symbols.length];
-    }, 400);
+    }, 700);
 }
 
 const stopAnimation = () => {
@@ -258,7 +258,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div class="flex flex-col items-center justify-center">
+    <div class="flex flex-col items-center justify-center h-[100vh]">
 
         <!-- <ServerErrorAlert v-if="isServerError" :message="errorMessage" /> -->
         <Notification v-if="isServerError" :isNotificational="true" :value="errorMessage" :typeNotification="'error'" />
@@ -291,7 +291,8 @@ onBeforeUnmount(() => {
                 :imageAlt="symbol" :title="symbol" :betAmount="bets[symbol] || 0" @place-bet="placeBet"
                 @clear-bet="clearBets" :class="{
                     'highlighted': gameState.status === 'countdown' && currentSymbol === symbol,
-                    'scale-up': winningSymbols.includes(symbol)
+                    'scale-up': winningSymbols.includes(symbol),
+                    'border-gray-400': winningSymbols.length > 0 && !winningSymbols.includes(symbol)
                 }" class="klaklouk" />
         </div>
 
@@ -337,7 +338,7 @@ html {
     }
 
     50% {
-        transform: scale(1.05);
+        transform: scale(1.02);
     }
 
     100% {
@@ -346,11 +347,15 @@ html {
 }
 
 .scale-up {
-    animation: scaleUp 3s ease-in-out;
+    animation: scaleUp 4s ease-in-out;
     /* Set to 3s for testing */
     animation-fill-mode: forwards;
     /* Keeps the final state of the animation */
-    border: 4px solid red;
+    border: 8px solid green;
+}
+
+.dark .scale-up {
+    border: 8px solid green;
 }
 
 @keyframes scaleUp {
@@ -359,9 +364,11 @@ html {
     }
 
     50% {
-        transform: scale(1.1);
+        transform: scale(1.02);
     }
-
+    75% {
+        transform: scale(1.06);
+    }
     100% {
         transform: scale(1);
     }
