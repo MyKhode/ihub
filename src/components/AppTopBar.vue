@@ -101,7 +101,7 @@ onUnmounted(() => {
 
 <template>
   <header
-    class="sticky top-0 z-30 flex items-center justify-between p-3 shadow bg-gradient-to-l md:bg-gradient-to-r from-yellow-200 via-lime-400 to-green-600 dark:bg-gradient-to-r dark:from-slate-900 dark:to-slate-700">
+    class="sticky top-0 z-30 flex items-center justify-between p-3 shadow bg-gradient-to-l md:bg-gradient-to-r bg-slate-300 dark:bg-gradient-to-r dark:from-slate-900 dark:to-slate-700">
 
     <!-- Menu Button -->
     <v-icon-button @click="emit('update:modelValue', !props.modelValue)">
@@ -112,13 +112,13 @@ onUnmounted(() => {
     <!-- User Token Info & Theme Toggle -->
     <div class="flex items-center space-x-4">
       <div v-if="isSignIn" class="flex items-center space-x-1 cursor-pointer" title="User Remaining Tokens">
-        <span>Tokens: {{ token }}</span>
-        <i class="fa-solid fa-gem"></i>
+        <span>{{ new Intl.NumberFormat('en-KH', { style: 'currency', currency: 'KHR' }).format(token) }}</span>
+        <span class="iconify text-2xl font-semibold text-gray-900 dark:text-white" data-icon="mingcute:binance-coin-bnb-fill"></span>
       </div>
 
       <router-link v-else to="/signin">
         <div class="flex items-center space-x-1 cursor-pointer" title="Sign up now and get 250 tokens free">
-          <span>Sign Up Now & Get 250 Tokens FREE</span>
+          Sign Up
         </div>
       </router-link>
 

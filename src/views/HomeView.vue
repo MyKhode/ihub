@@ -53,7 +53,7 @@ const items = ref([
   {
     id: 1,
     username: "MyKhode",
-    title: "Khmer Telegram Chatbot",
+    title: "Extract Subtitle From Tikok Video",
     description: "A declarative, efficient, and flexible JS library for building user interfaces.",
     image: "https://www.ikhode.site/_astro/avatar.CIVzSjiG_Z1VvrYM.webp"
   },
@@ -93,74 +93,151 @@ const items = ref([
     image: "https://picsum.photos/40/40?random=6"
   }
 ]);
+
+const tools = ref([
+  {
+    id: 1,
+    title: "Extract TikTok Subtitle Video",
+    description: "A declarative, efficient, and flexible JS library for building user interfaces.",
+    icon: "game-icons:spell-book",
+    color: "text-cyan-500",
+    route: "/extract-subtitle-from-tiktok-video"
+  },
+  {
+    id: 1,
+    title: "Kla Klouk",
+    description: "A declarative, efficient, and flexible JS library for building user interfaces.",
+    icon: "game-icons:dice-fire",
+    color: "text-yellow-500",
+    route: "/kla-klouk"
+  },
+  {
+    id: 1,
+    title: "Extract TikTok Subtitle Video",
+    description: "A declarative, efficient, and flexible JS library for building user interfaces.",
+    icon: "game-icons:spell-book",
+    color: "text-cyan-500",
+    route: "/extract-subtitle-from-tiktok-video"
+  },
+  {
+    id: 1,
+    title: "Kla Klouk",
+    description: "A declarative, efficient, and flexible JS library for building user interfaces.",
+    icon: "game-icons:dice-fire",
+    color: "text-yellow-500",
+    route: "/kla-klouk"
+  },
+
+
+])
 </script>
 <template>
-  <div>
-    <section class="h-fit px-2 md:px-5 lg:px-30 flex flex-col lg:flex-row items-center justify-center text-white  md:pt-5">
-      <div class="w-full lg:w-1/2 text-center lg:text-left space-y-6 p-20 px-0 md:px-20">
-        <span class="text-4xl truncate">🔥</span>
-        <h1 class="text-3xl md:text-4xl text-black font-bold dark:text-white">Building
-          a Better
-          Future with AI Technology.</h1>
-        <p class="text-lg text-gray-400 max-w-lg">
-          A platform where developers and enthusiasts collaborate to create
-          powerful Vue.js applications, share components, and contribute to
-          open-source projects.
-        </p>
-        <div class=" items-center justify-center lg:justify-start space-x-2 mt-6">
-          <router-link to="/signin" v-if="!isSignIn">
-            <VButton buttonColor="red" type="submit" class="w-fit px-12 py-2.5">
-              Sign In
-            </VButton>
-          </router-link>
-          <router-link to="/profile" v-if="isSignIn">
-            <VButton buttonColor="red" type="submit" class="w-fit px-12 py-2.5">
-              Account
-            </VButton>
-          </router-link>
-          <router-link to="/apps">
-            <button type="button"
-              class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-              Browse All App
-            </button>
-          </router-link>
+  <section>
+    <!-- component -->
+    <div class="relative w-full isolate overflow-hidden">
+      <svg
+        class="absolute inset-0 -z-10 h-full w-full stroke-white dark:stroke-zinc-200/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+        aria-hidden="true">
+        <defs>
+          <pattern id="983e3e4c-de6d-4c3f-8d64-b9761d1534cc" width="200" height="200" x="50%" y="-1"
+            patternUnits="userSpaceOnUse">
+            <path d="M.5 200V.5H200" fill="none" />
+          </pattern>
+        </defs>
 
+        <rect width="100%" height="100%" stroke-width="8" fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)" />
+      </svg>
+      <div
+        class="absolute left-[calc(50%-4rem)] top-10 -z-10 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]"
+        aria-hidden="true">
+        <div class="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-[#80caff] to-[#4f46e5] opacity-20"
+          style="clip-path: polygon(73.6% 51.7%, 91.7% 11.8%, 100% 46.4%, 97.4% 82.2%, 92.5% 84.9%, 75.7% 64%, 55.3% 47.5%, 46.5% 49.4%, 45% 62.9%, 50.3% 87.2%, 21.3% 64.1%, 0.1% 100%, 5.4% 51.1%, 21.4% 63.9%, 58.9% 0.2%, 73.6% 51.7%)">
         </div>
       </div>
-
-      <div class="hidden lg:flex w-1/2 justify-center">
-        <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-lg">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Popular
-              AI APP</h3>
-            <input type="text" placeholder="Search..."
-              class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-md focus:outline-none">
+      <div class="mx-auto px-6 pb-24 pt-0 md:pt-10 sm:pb-32 lg:flex lg:px-10 lg:py-15">
+        <div class="mx-auto max-w-2xl flex-shrink-0 lg:mx-0 lg:max-w-xl lg:pt-8">
+          <!-- <img class="h-11" src="https://isren.org/storage/isren-network.png" alt="Your Company"> -->
+          <div class="mt-24 sm:mt-32 lg:mt-16">
+            <a href="#" class="inline-flex space-x-6">
+              <span
+                class="rounded-full bg-indigo-500/10 px-3 py-1 text-sm font-semibold leading-6 text-cyan-500 ring-1 ring-inset ring-indigo-500/20">What's
+                new</span>
+              <span
+                class="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-gray-800 dark:text-gray-300">
+                <span>About us</span>
+                <svg class="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd"
+                    d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                    clip-rule="evenodd" />
+                </svg>
+              </span>
+            </a>
           </div>
-          <ul class="space-y-3">
-            <li v-for="tool in tool_items" :key="tool.name"
-              class="cursor-pointer bg-gray-200 dark:bg-gray-700 p-3 rounded-md flex justify-between hover:bg-gray-300 dark:hover:bg-gray-600">
-              <span class="text-gray-900 dark:text-white">{{ tool.name }}</span>
-              <span class="text-gray-500 dark:text-gray-400">📦{{ tool.click }}</span>
-            </li>
-          </ul>
+          <h1 class="mt-10 text-4xl font-bold tracking-tight text-slate-700 dark:text-white sm:text-6xl">YOUR GATEWAY TO
+            THE WORLD OF
+            KNOWLEDGE</h1>
+          <p class="mt-6 text-lg leading-8 text-gray-300">Explore the depths of scientific and research work and stay
+            informed of the latest developments in knowledge..</p>
+          <div class="mt-10 flex items-center gap-x-6">
+            
+              <router-link to="/apps" class="rounded-md bg-orange-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">
+                Get started
+              </router-link>
+            <a href="#" class="text-sm font-semibold leading-6 text-gray-800 dark:text-white">Learn more <span
+                aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <div class="mx-auto items-center mt-16 hidden md:flex">
+          <BrandLogoAnimation />
+        </div>
+      </div>
+    </div>
+  </section>
+  <div>
+    <section
+      class="h-fit px-2 md:px-5 lg:px-8 flex flex-col lg:flex-row items-center justify-center text-white md:pt-5">
+      <div class="flex flex-col w-full justify-center items-center pb-10 lg:pb-40">
+        <h1
+          class="w-full px-1 lg:px-26 font-bold text-start py-3 text-2xl md:text-3xl lg:text-4xl text-black dark:text-white">
+          Quick starts</h1>
+        <div class="w-full px-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+          <div v-for="tool in tools" class="">
+            <router-link :to="tool.route"
+              class="cursor-pointer px-2 border-2 border-slate-500 border-opacity-60 rounded-lg h-23 hover:bg-slate-200 dark:hover:bg-slate-700 hover:border-cyan-50 duration-500 flex items-center justify-start">
+              <div
+                class="w-18 h-18 border-2 border-slate-100 rounded-lg hover:bg-slate-400 bg-slate-500 duration-300 justify-center items-center flex">
+                <!-- <i class="fa-brands w-18 text-center text-2xl" :class="tool.color + ' ' + tool.icon"></i> -->
+                <span class="iconify text-6xl w-18" :data-icon="tool.icon" :class="tool.color"></span>
+              </div>
+              <div class="flex flex-col w-full h-20 justify-start pt-2">
+                <h1 class="text-start truncate px-3 text-sm md:text-base lg:text-x text-black dark:text-white">
+                  {{ tool.title.length > 27 ? tool.title.slice(0, 30) + '...' : tool.title }}
+                </h1>
+                <p class="text-start text-gray-500 dark:text-gray-400 px-3 text-xs line-clamp-2">
+                  {{ tool.description.length > 77 ? tool.description.slice(0, 75) + '...' : tool.description }}
+                </p>
+              </div>
+            </router-link>
+          </div>
         </div>
       </div>
     </section>
-    <div class=" w-full h-px max-w-6xl mx-auto md:my-20 my-5 md:mt-0 pt-0"
+    <div class="w-full h-px max-w-6xl mx-auto md:my-20 my-5 md:mt-10 pt-0"
       style="background-image: linear-gradient(90deg, rgba(149, 131, 198, 0) 1.46%, rgba(149, 131, 198, 0.6) 40.83%, rgba(149, 131, 198, 0.3) 65.57%, rgba(149, 131, 198, 0) 107.92%);">
     </div>
 
     <!-- Token Plan Section Standard Card -->
 
-    <section>
-      <div class="flex px-5 w-full py-11 md:py-0 md:flex-row justify-start lg:justify-center items-center gap-7 overflow-x-auto snap-x md:snap-none md:overflow-x-visible">
-        <standardCard :title="'Basic'" :price="0.05" :tokens="'1000'"  class="snap-center"/>
-        <standardCard :title="'Basic'" :price="0.50" :tokens="'2000'" class="snap-center"/>
-        <standardCard :title="'Basic'" :price="1.00" :tokens="'4000'" class="snap-center"/>
+    <!-- <section>
+      <div
+        class="flex px-5 w-full py-11 md:py-0 md:flex-row justify-start lg:justify-center items-center gap-7 overflow-x-auto snap-x md:snap-none md:overflow-x-visible">
+        <standardCard :title="'Basic'" :price="0.05" :tokens="'1000'" class="snap-center" />
+        <standardCard :title="'Basic'" :price="0.50" :tokens="'2000'" class="snap-center" />
+        <standardCard :title="'Basic'" :price="1.00" :tokens="'4000'" class="snap-center" />
       </div>
-    </section>
+    </section> -->
 
-    <section class="px-3 py-10">
+    <section class="px-2 md:px-10 py-10 w-full">
       <div>
         <h1 class="font-bold text-center text-2xl md:text-3xl lg:text-4xl">Our
           Open Source</h1>
@@ -174,11 +251,11 @@ const items = ref([
         </div>
       </div>
 
-      <div class="h-screen flex flex-col items-center ">
+      <div class="h-screen w-full flex flex-col items-center ">
         <!-- Grid Layout -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <a v-for="item in items" :key="item.id" href="#"
-            class="w-86 lg:w-83 bg-gradient-to-r from-slate-300 to-slate-500 dark:bg-gradient-to-l dark:from-slate-900 dark:to-slate-700 border rounded-lg border-gray-700 p-5 shadow hover:bg-gradient-to-r hover:from-yellow-200 hover:via-lime-400 hover:to-green-600 dark:hover:bg-gray-700 dark:hover:bg-gradient-to-r hover:border-cyan-50 dark:hover:border-cyan-50  transition">
+            class="bg-gradient-to-r from-slate-300 to-slate-500 dark:bg-gradient-to-l dark:from-slate-900 dark:to-slate-700 border rounded-lg border-gray-700 p-5 shadow hover:from-yellow-200 hover:via-lime-400 hover:to-green-600 dark:hover:bg-gray-700 hover:border-cyan-50 dark:hover:border-cyan-50 duration-500">
             <!-- Header -->
             <div class="flex flex-row">
               <img :src="item.image" class="rounded h-12" />

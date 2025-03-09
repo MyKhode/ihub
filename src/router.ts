@@ -50,7 +50,7 @@ const router = createRouter({
         { path: "/", name: "home", component: () => import("@/views/HomeView.vue") }, // Public route
         { path: "/apps", name: "apps", component: () => import("@/views/AllApps.vue") }, // Public route
         { path: "/profile", name: "profile", component: () => import("@/views/ProfileView.vue"), meta: { requiresAuth: true } },
-        { path: "/extract-subtitle-from-tiktok-video", name: "extract-subtitle-from-tiktok-video", component: () => import("@/app/getsub/GetSub.vue"), meta: { requiresAuth: true } },
+        { path: "/extract-subtitle-from-tiktok-video", name: "extract-subtitle-from-tiktok-video", component: () => import("@/app/getsub/GetSubtitle.vue"), meta: { requiresAuth: true } },
         { path: "/kla-klouk", name: "kla-klouk", component: () => import("@/app/KlaKlouk/KlaKlouk.vue"), meta: { requiresAuth: true } },
       ],
     },

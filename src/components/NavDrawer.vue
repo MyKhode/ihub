@@ -15,7 +15,7 @@
     <div
       v-if="modelValue"
       ref="navContainer"
-      class="nav-container bg-gradient-to-y from-yellow-200 via-lime-400 to-green-600 dark:bg-gradient-to-t dark:from-slate-900 dark:to-slate-700 fixed z-50 flex h-full max-h-full w-64 flex-col justify-between divide-y overflow-y-auto shadow-lg transition-transform dark:shadow-none"
+      class="nav-container bg-gradient-to-y from-slate-200 via-slate-400 to-slate-600 dark:bg-gradient-to-t dark:from-slate-900 dark:to-slate-700 fixed z-50 flex h-full max-h-full w-64 flex-col justify-between divide-y overflow-y-auto shadow-lg transition-transform dark:shadow-none"
     >
       <nav class="py-2 text-slate-900 dark:text-slate-50 font-bold">
         <span class="nav-button">
@@ -30,7 +30,7 @@
           v-for="{ text, to, icon } in navLinks"
           v-wave
           class="nav-button"
-          exact-active-class="rounded-md text-gray-900 dark:text-white bg-gradient-to-r from-teal-400 to-yellow-200 dark:from-slate-300 dark:to-slate-500"
+          exact-active-class="rounded-md text-gray-900 dark:text-white bg-gradient-to-r from-gray-400 to-gray-200 dark:from-slate-300 dark:to-slate-500"
           :to="to"
         >
           <span class="iconify mr-2 h-4 w-4" :data-icon="icon"></span>
@@ -73,12 +73,12 @@ onClickOutside(navContainer, () => {
 /* main navigation links for side drawer */
 const navLinks = [
   {
-    text: "Home",
+    text: "home",
     to: "/",
     icon: "heroicons-outline:home",
   },
   {
-    text: "All Apps",
+    text: "all apps",
     to: "/apps",
     icon: "game-icons:abstract-050",
   },
@@ -86,6 +86,16 @@ const navLinks = [
     text: "kla klouk",
     to: "/kla-klouk",
     icon: "game-icons:dice-fire",
+  },
+  {
+    text: "get tiktok sub",
+    to: "/extract-subtitle-from-tiktok-video",
+    icon: "game-icons:spell-book",
+  },
+  {
+    text: "token top up",
+    to: "/profile",
+    icon: "mingcute:binance-coin-bnb-fill",
   },
   {
     text: "Profile",
@@ -107,6 +117,6 @@ async function signOut() {
 } */
 
 .nav-button {
-  @apply flex items-center rounded p-2 text-sm transition-colors focus:outline-none focus:ring-1 focus:ring-teal-500;
+  @apply flex items-center rounded p-2 text-sm transition-colors focus:outline-none focus:ring-1 focus:ring-slate-500;
 }
 </style>
