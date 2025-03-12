@@ -15,5 +15,5 @@ app.use
 const isDark = useDark();
 app.provide(isDarkKey, isDark);
 
-app.use(router).use(pinia).use(VWave);
+app.use(router).use(pinia);
 app.mount("#app");

@@ -18,9 +18,6 @@ declare module 'vue' {
     Feature: typeof import('./src/components/Feature.vue')['default']
     FileDownload: typeof import('./src/components/FileDownload.vue')['default']
     ICarbonLogout: typeof import('~icons/carbon/logout')['default']
-    ICarbonMenu: typeof import('~icons/carbon/menu')['default']
-    ICarbonMoon: typeof import('~icons/carbon/moon')['default']
-    ICarbonSun: typeof import('~icons/carbon/sun')['default']
     IMdiFacebook: typeof import('~icons/mdi/facebook')['default']
     IMdiGithub: typeof import('~icons/mdi/github')['default']
     IMdiGoogle: typeof import('~icons/mdi/google')['default']
@@ -43,6 +40,5 @@ declare module 'vue' {
     VInput: typeof import('./src/components/VInput.vue')['default']
     VLabel: typeof import('./src/components/VLabel.vue')['default']
     VPasswordInput: typeof import('./src/components/VPasswordInput.vue')['default']
-    WhyUs: typeof import('./src/components/WhyUs.vue')['default']
   }
 }
