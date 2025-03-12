@@ -5,8 +5,6 @@ import { io } from 'socket.io-client'
 import Notification from '@/components/Notification.vue'
 import { useAuthStore } from '@/stores/auth'
 import { eventBus } from '@/eventBus'
-import Breadcrumb from "@/components/Breadcrumb.vue"; // Import the Breadcrumb component
-
 
 const { supabase } = useAuthStore()
 const user = supabase.auth.user()
