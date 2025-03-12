@@ -7,11 +7,14 @@ import { useAuthStore } from '@/stores/auth'
 import { eventBus } from '@/eventBus'
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Breadcrumb from '@/components/Breadcrumb.vue';
 
 =======
 >>>>>>> parent of f7a53a5 (ui update)
 
+=======
+>>>>>>> parent of f7a53a5 (ui update)
 =======
 >>>>>>> parent of f7a53a5 (ui update)
 
