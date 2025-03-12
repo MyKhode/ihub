@@ -15,14 +15,6 @@ declare module 'vue' {
     BrandLogoAnimation: typeof import('./src/components/BrandLogoAnimation.vue')['default']
     FileDownload: typeof import('./src/components/FileDownload.vue')['default']
     ICarbonLogout: typeof import('~icons/carbon/logout')['default']
-    ICarbonMenu: typeof import('~icons/carbon/menu')['default']
-    ICarbonMoon: typeof import('~icons/carbon/moon')['default']
-    ICarbonSun: typeof import('~icons/carbon/sun')['default']
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> parent of 9837d46 (remove package and server)
     IMdiFacebook: typeof import('~icons/mdi/facebook')['default']
     IMdiGithub: typeof import('~icons/mdi/github')['default']
     IMdiGoogle: typeof import('~icons/mdi/google')['default']
