@@ -5,18 +5,8 @@ import { io } from 'socket.io-client'
 import Notification from '@/components/Notification.vue'
 import { useAuthStore } from '@/stores/auth'
 import { eventBus } from '@/eventBus'
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-import Breadcrumb from '@/components/Breadcrumb.vue';
+import Breadcrumb from "@/components/Breadcrumb.vue"; // Import the Breadcrumb component
 
-=======
->>>>>>> parent of f7a53a5 (ui update)
-
-=======
->>>>>>> parent of f7a53a5 (ui update)
-=======
->>>>>>> parent of f7a53a5 (ui update)
 
 const { supabase } = useAuthStore()
 const user = supabase.auth.user()
