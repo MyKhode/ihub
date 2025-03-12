@@ -1,8 +1,7 @@
 <template>
     <div class="container">
-        <div title="RD-LAB CENTER LOGO" class="card z-20 cursor-pointer bg-gradient-to-r from-slate-300 to-slate-100 dark:bg-gradient-to-r dark:from-slate-900 dark:to-slate-700">
-            <span class="text-slate-900 dark:text-slate-50 inline dark:hidden">RD</span>
-            <span class="dark:text-slate-50 hidden dark:inline">AI</span>
+        <div class="card z-20">
+            <span>RD</span>
             <div class="lines">
                 <!-- Top Lines -->
                 <div class="line-top-1 animate-pulse z-1"></div>
@@ -33,7 +32,7 @@
     }
 
     60% {
-        box-shadow: 0 0 40px rgb(255, 255, 255);
+        box-shadow: 0 0 40px rgba(0, 174, 255, 0.7);
     }
 
     100% {
@@ -48,6 +47,7 @@
     align-items: center;
     width: 250px;
     height: 250px;
+    background-color: #1E1F29;
     border-radius: 25px;
     border: 4px solid rgb(136, 136, 136);
     position: relative;
@@ -58,6 +58,7 @@
 
 /* AI text */
 .card span {
+    color: #FFFFFF;
     font-size: 64px;
     font-weight: bold;
 }
