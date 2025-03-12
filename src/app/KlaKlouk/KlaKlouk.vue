@@ -5,6 +5,8 @@ import { io } from 'socket.io-client'
 import Notification from '@/components/Notification.vue'
 import { useAuthStore } from '@/stores/auth'
 import { eventBus } from '@/eventBus'
+import Breadcrumb from "@/components/Breadcrumb.vue"; // Import the Breadcrumb component
+
 
 const { supabase } = useAuthStore()
 const user = supabase.auth.user()
@@ -255,16 +257,22 @@ onMounted(() => {
 onBeforeUnmount(() => {
     stopAnimation();
 });
+
+const breadcrumbs = ref([
+  { name: "Home", url: "/" },
+  { name: "All Apps", url: "/apps" },
+  { name: "Fish Prawn Crab Dice Game", url: "/games/kla-klouk" },
+]);
 </script>
 
 <template>
-    <div class="flex flex-col items-center justify-center h-[100vh]">
-
+    <div class="relative flex flex-col items-center justify-center h-[100vh]">
+        <Breadcrumb :breadcrumbs="breadcrumbs" class="absolute top-0 left-0 md:top-5 md:left-5"/>
         <!-- <ServerErrorAlert v-if="isServerError" :message="errorMessage" /> -->
         <Notification v-if="isServerError" :isNotificational="true" :value="errorMessage" :typeNotification="'error'" />
         <!-- Game Controls -->
         <div
-            class="mt-5 lg:mt-0 flex flex-col items-center justify-center text-center space-y-4 lg:flex-row lg:space-y-0 lg:gap-2">
+            class="mt-15 lg:mt-0 flex flex-col items-center justify-center text-center space-y-1 lg:flex-row md:space-y-0 lg:gap-2">
             <!-- Roll Dice Button -->
             <button @click="rollDice" :disabled="gameState.status !== 'waiting'"
                 class="px-6 py-2 cursor-pointer bg-yellow-500 hover:bg-yellow-600 text-white font-bold rounded-lg transition-colors">

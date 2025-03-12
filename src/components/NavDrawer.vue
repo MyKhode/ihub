@@ -18,11 +18,11 @@
       class="nav-container bg-gradient-to-y from-slate-200 via-slate-400 to-slate-600 dark:bg-gradient-to-t dark:from-slate-900 dark:to-slate-700 fixed z-50 flex h-full max-h-full w-64 flex-col justify-between divide-y overflow-y-auto shadow-lg transition-transform dark:shadow-none"
     >
       <nav class="py-2 text-slate-900 dark:text-slate-50 font-bold">
-        <span class="nav-button">
+        <router-link to="/" class="nav-button">
           RD-LAB CENTER
           <i-simple-icons-vuedotjs class="ml-2 h-4 w-4" />
           <i-simple-icons-supabase class="ml-2 h-4 w-4" />
-        </span>
+        </router-link>
       </nav>
 
       <nav class="flex flex-shrink-0 flex-grow flex-col space-y-2 py-2 text-gray-900 dark:text-slate-400">
@@ -73,34 +73,39 @@ onClickOutside(navContainer, () => {
 /* main navigation links for side drawer */
 const navLinks = [
   {
-    text: "home",
+    text: "Home",
     to: "/",
-    icon: "heroicons-outline:home",
+    icon: "fluent-color:home-32",
   },
   {
-    text: "all apps",
+    text: "All Apps",
     to: "/apps",
-    icon: "game-icons:abstract-050",
+    icon: "fluent-color:diversity-16",
   },
   {
-    text: "kla klouk",
-    to: "/kla-klouk",
-    icon: "game-icons:dice-fire",
+    text: "Kla Klouk",
+    to: "/games/kla-klouk",
+    icon: "noto:game-die",
   },
   {
-    text: "get tiktok sub",
-    to: "/extract-subtitle-from-tiktok-video",
-    icon: "game-icons:spell-book",
+    text: "Get TikTok Sub",
+    to: "/apps/extract-subtitle-from-tiktok-video",
+    icon: "fluent-color:document-text-28",
   },
   {
-    text: "token top up",
-    to: "/profile",
+    text: "Token Top Up",
+    to: "/top-up",
     icon: "mingcute:binance-coin-bnb-fill",
+  },
+  {
+    text: "Notifications",
+    to: "/notifications",
+    icon: "fluent-color:mail-alert-32",
   },
   {
     text: "Profile",
     to: "/profile",
-    icon: "heroicons-outline:user",
+    icon: "fluent-color:person-available-24",
   },
 ];
 
@@ -117,6 +122,6 @@ async function signOut() {
 } */
 
 .nav-button {
-  @apply flex items-center rounded p-2 text-sm transition-colors focus:outline-none focus:ring-1 focus:ring-slate-500;
+  @apply flex items-center rounded p-2 hover:bg-slate-100 dark:hover:bg-slate-600 duration-500 text-sm transition-colors focus:outline-none focus:ring-1 focus:ring-slate-500;
 }
 </style>

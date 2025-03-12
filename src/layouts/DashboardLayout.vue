@@ -4,6 +4,7 @@ import { ref } from "vue";
 import { RouterLink } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
 import standardCard from "@/components/StandardCard.vue";
+import LoadingScreen from "@/components/LoadingScreen.vue";
 
 const { supabase } = useAuthStore();
 const isSignIn = ref(!!supabase.auth.user());
@@ -19,14 +20,17 @@ watch(route, () => {
   if (!lgAndLarger.value) open.value = false;
 });
 
-
-
 onMounted(() => {
   open.value = lgAndLarger.value;
 });
 </script>
 
 <template>
+<!-- 
+  <div class="absolute z-50 inset-0 flex items-center justify-center">
+    <LoadingScreen v-if="isSignIn" />
+  </div> -->
+
   <div class="flex h-full w-full max-w-full transition-colors">
    
     <NavDrawer v-model="open" />
