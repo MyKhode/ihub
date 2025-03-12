@@ -19,7 +19,10 @@ declare module 'vue' {
     ICarbonMoon: typeof import('~icons/carbon/moon')['default']
     ICarbonSun: typeof import('~icons/carbon/sun')['default']
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 9837d46 (remove package and server)
     IMdiFacebook: typeof import('~icons/mdi/facebook')['default']
     IMdiGithub: typeof import('~icons/mdi/github')['default']
     IMdiGoogle: typeof import('~icons/mdi/google')['default']
