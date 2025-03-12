@@ -18,6 +18,13 @@ declare module 'vue' {
     ICarbonMenu: typeof import('~icons/carbon/menu')['default']
     ICarbonMoon: typeof import('~icons/carbon/moon')['default']
     ICarbonSun: typeof import('~icons/carbon/sun')['default']
+<<<<<<< HEAD
+=======
+    IMdiFacebook: typeof import('~icons/mdi/facebook')['default']
+    IMdiGithub: typeof import('~icons/mdi/github')['default']
+    IMdiGoogle: typeof import('~icons/mdi/google')['default']
+    IMdiTwitter: typeof import('~icons/mdi/twitter')['default']
+>>>>>>> parent of 9837d46 (remove package and server)
     ISimpleIconsSupabase: typeof import('~icons/simple-icons/supabase')['default']
     ISimpleIconsVuedotjs: typeof import('~icons/simple-icons/vuedotjs')['default']
     LoadingIcon: typeof import('./src/components/LoadingIcon.vue')['default']
@@ -33,5 +40,6 @@ declare module 'vue' {
     VInput: typeof import('./src/components/VInput.vue')['default']
     VLabel: typeof import('./src/components/VLabel.vue')['default']
     VPasswordInput: typeof import('./src/components/VPasswordInput.vue')['default']
+    WhyUs: typeof import('./src/components/WhyUs.vue')['default']
   }
 }
